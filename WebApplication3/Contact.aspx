@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebApplication3.Contact" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" SmartNavigation="false" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebApplication3.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <main aria-labelledby="title">
@@ -15,5 +15,7 @@
             <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
             <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
         </address>
+                <h3 style="position:absolute; top:1000px">Your contact page.</h3>
+
     </main>
 </asp:Content>

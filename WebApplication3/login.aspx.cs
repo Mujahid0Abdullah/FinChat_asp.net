@@ -1,17 +1,21 @@
-﻿using System;
+﻿using Org.BouncyCastle.Crypto.Generators;
+using System;
 using System.Collections.Generic;
-
+using BCrypt.Net;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace WebApplication3
 {
     public partial class login : System.Web.UI.Page
     {
+        public static string con = "SERVER=localhost;DATABASE=webproject;UID=root;PASSWORD=;";
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,7 +38,6 @@ namespace WebApplication3
             }
 
             // Establish connection to the database
-            //string connectionString = "Server=http://localhost;Database=webproject;User Id=root;Password=;";
             string connectionString = "SERVER=localhost;DATABASE=webproject;UID=root;PASSWORD=;";
 
             try
@@ -59,16 +62,24 @@ namespace WebApplication3
                         // User found, read password hash from database
                         reader.Read();
                         string storedPasswordHash = reader["password"].ToString();
-
+                        string id = reader["id"].ToString();    
+                        Console.WriteLine(id);
+                        // Şifreyi hashle ve hashlenmiş şifreyi al
+                        //string AhashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                   
+                        //----------------------------------
+                        bool isMatch = BCrypt.Net.BCrypt.Verify(password, storedPasswordHash);
+                        Console.WriteLine("Passwords match: " + isMatch);
+                        //----------------------------------
                         // Check if entered password matches stored password hash
-                        if (!VerifyPassword(password, storedPasswordHash))
+                        if (!isMatch)
                         {
                             // Password incorrect
                             ScriptManager.RegisterStartupScript(this, GetType(), "InvalidPassword", "alert('Invalid username or password.');", true); return;
                         }
-
+                        Session["id"] = id;
                         // Password correct, redirect to home page
-                        Response.Redirect("About.aspx");
+                        Response.Redirect("post.aspx");
                     }
                 }
             }

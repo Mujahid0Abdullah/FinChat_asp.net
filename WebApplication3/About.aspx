@@ -5,6 +5,9 @@
         <h2 id="title"><%: Title %>.</h2>
         <h3>Your application description page.</h3>
         <p>Use this area to provide additional information.</p>
+        <asp:Label ID="Label1" runat="server" Font-Bold Text="Label">dsafdsf</asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Label" OnLoad="gg"></asp:Label>
         <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" Width="129px" />
+
     </main>
 </asp:Content>
