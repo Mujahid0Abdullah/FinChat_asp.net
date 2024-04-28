@@ -24,10 +24,99 @@ namespace WebApplication3
                 string id = Session["id"].ToString();
                 Console.WriteLine(id);
                 GetUserinfo(id);
+                GetPost();
+                if (Request.QueryString["postId"] != null)
+                {
+                    string gg = Request.QueryString["postId"];
+                    Console.WriteLine(Request.QueryString["postId"]);
+                }
             }
         }
 
+        protected void GetPost() {
 
+          
+
+            // postDetails değişkeni örnek olarak bir postun detaylarını içeriyor olsun
+            // Bu verileri veritabanından almak için gerekli sorgu çalıştırılır
+            string query = "SELECT p.*, u.id AS userId, name, profilePic FROM posts p JOIN users u ON (u.id = p.userId) ORDER BY p.createdAt DESC";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                   
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        string postsHtml = "";
+                        while (reader.Read())
+                        {
+                            postsHtml += $@"
+                        <div class='post-view'>
+                            <div class='left-column'>
+                                <div class='user-avatar-big' onclick='openHisProfilePage({reader["userId"]})'>
+                                    <div class='user-avatar' style='height: 100%; width: 100%;'>
+                                        <img src='https://lh3.googleusercontent.com/d/{reader["profilePic"]}'>
+                                    </div>
+                                </div>
+                                <div class='user-name'>{reader["name"]}</div>
+                            </div>
+                            <div class='right-column'>
+                                <div class='upper-row'>
+                                    <textarea readonly style='font-weight: bold; font-size: 16px;'>{reader["desc"]}</textarea>
+                                </div>
+                                <div class='lower-row'>
+                                    <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
+                                    <button onclick='postClicked({reader["id"]})' id='commentsButton'>
+                                        <img src='https://fin-chat.onrender.com/static/comment.png' alt='Button Image'>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>";
+                        }
+                        postsList.InnerHtml = postsHtml;
+                        reader.Close();
+                    }
+
+                    //if (reader.Read())
+                    //    {
+                    //        // Veritabanından alınan post detayları işlenir
+                    //        string postContent = @"
+                    //        <div class='post-view'>
+                    //            <div class='left-column'>
+                    //                <div class='user-avatar-big' onclick='openHisProfilePage(" + reader["userId"] + @")'>
+                    //                    <div class='user-avatar' style='height: 100%; width: 100%;'>
+                    //                        <img src='https://lh3.googleusercontent.com/d/" + reader["profilePic"] + @"'>
+                    //                    </div>
+                    //                </div>
+                    //                <div class='user-name'>" + reader["name"] + @"</div>
+                    //            </div>
+                    //            <div class='right-column'>
+                    //                <div class='upper-row'>
+                    //                    <textarea readonly style='font-weight: bold; font-size: 16px;'>" + reader["desc"] + @"</textarea>
+                    //                </div>
+                    //                <div class='lower-row'>
+                    //                    <div style='font-weight: normal; font-size: 12px;' readonly>" + reader["createdAt"] + @"</div>
+                    //                    <button onclick='postClicked(" + reader["id"] + @")' id='commentsButton'>
+                    //                        <img src='https://fin-chat.onrender.com/static/comment.png' alt='Button Image'>
+                    //                    </button>
+                    //                </div>
+                    //            </div>
+                    //        </div>";
+
+                    //        // Post içeriği sayfaya eklenir
+                    //        postContainer.InnerHtml = postContent;
+                    //    }
+                    //    else
+                    //    {
+                    //        // Post bulunamadıysa hata mesajı gösterilir
+                    //        postContainer.InnerHtml = "<p>Post not found.</p>";
+                    //    }
+                    
+                }
+            }
+
+        }
         protected void GetUserinfo(string userId)
         {
             try

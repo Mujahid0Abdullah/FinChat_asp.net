@@ -1,6 +1,10 @@
 ﻿
 
-
+function postClicked(postId) {
+    alert(postId)
+    window.location.href = "./profile";
+   // window.location = `./post?postId=${postId}`
+}
 //skkekfrekfrk
 function togglePopup(event) {
     event.stopPropagation();

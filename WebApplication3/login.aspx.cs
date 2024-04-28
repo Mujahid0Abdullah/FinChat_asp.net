@@ -140,27 +140,7 @@ namespace WebApplication3
         //    }
         //}
 
-        private bool VerifyPassword(string enteredPassword, string storedPasswordHash)
-        {
-            // Decode stored password hash and extract salt
-            byte[] hashBytes = Convert.FromBase64String(storedPasswordHash);
-            byte[] salt = new byte[16];
-            Array.Copy(hashBytes, 0, salt, 0, 16);
-
-            // Hash entered password using same salt and compare with stored hash
-            using (var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, 10000))
-            {
-                byte[] hash = pbkdf2.GetBytes(20);
-                for (int i = 0; i < 20; i++)
-                {
-                    if (hashBytes[i + 16] != hash[i])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
+       
 
        
     }

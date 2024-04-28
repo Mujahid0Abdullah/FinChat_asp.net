@@ -9,7 +9,14 @@
     <title></title>
 </head>
 <body>
-     <input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclick="openProfilePage()" />
+    <script type="text/javascript">
+        function postClicked(postId) {
+            alert(postId)
+            
+            window.location = `./post?postId=${postId}`
+        }
+    </script>
+     <input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclientclick="return postClicked(12)" />
     <div id="container">
      <div id="left-region">
            <div class="user-avatar-big" style="margin:40px;">
@@ -50,9 +57,16 @@
              </div>
          </div>
      </div>
+
+
+
+
+
  </form>
 
+               <div id="postsList" runat="server">
 
+ </div>
               </div>
 
           <div id="right-region">
