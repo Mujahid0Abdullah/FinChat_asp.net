@@ -68,7 +68,7 @@ namespace WebApplication3
                                 <div class='lower-row'>
                                     <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
                                     <button onclick='postClicked({reader["id"]})' id='commentsButton'>
-                                        <img src='https://fin-chat.onrender.com/static/comment.png' alt='Button Image'>
+                                        <img src='./photos/comment.png' alt='Button Image'>
                                     </button>
                                 </div>
                             </div>
@@ -78,40 +78,7 @@ namespace WebApplication3
                         reader.Close();
                     }
 
-                    //if (reader.Read())
-                    //    {
-                    //        // Veritabanından alınan post detayları işlenir
-                    //        string postContent = @"
-                    //        <div class='post-view'>
-                    //            <div class='left-column'>
-                    //                <div class='user-avatar-big' onclick='openHisProfilePage(" + reader["userId"] + @")'>
-                    //                    <div class='user-avatar' style='height: 100%; width: 100%;'>
-                    //                        <img src='https://lh3.googleusercontent.com/d/" + reader["profilePic"] + @"'>
-                    //                    </div>
-                    //                </div>
-                    //                <div class='user-name'>" + reader["name"] + @"</div>
-                    //            </div>
-                    //            <div class='right-column'>
-                    //                <div class='upper-row'>
-                    //                    <textarea readonly style='font-weight: bold; font-size: 16px;'>" + reader["desc"] + @"</textarea>
-                    //                </div>
-                    //                <div class='lower-row'>
-                    //                    <div style='font-weight: normal; font-size: 12px;' readonly>" + reader["createdAt"] + @"</div>
-                    //                    <button onclick='postClicked(" + reader["id"] + @")' id='commentsButton'>
-                    //                        <img src='https://fin-chat.onrender.com/static/comment.png' alt='Button Image'>
-                    //                    </button>
-                    //                </div>
-                    //            </div>
-                    //        </div>";
-
-                    //        // Post içeriği sayfaya eklenir
-                    //        postContainer.InnerHtml = postContent;
-                    //    }
-                    //    else
-                    //    {
-                    //        // Post bulunamadıysa hata mesajı gösterilir
-                    //        postContainer.InnerHtml = "<p>Post not found.</p>";
-                    //    }
+                
                     
                 }
             }
@@ -153,7 +120,43 @@ namespace WebApplication3
             }
         }
 
+
         
+
+             protected void Button_image_Upload(object sender, EventArgs e)
+        {
+            StartUpLoad();
+        }
+
+        private void StartUpLoad()
+        {
+            //get the file name of the posted image  
+            string imgName = FileUpload1.FileName;
+            //sets the image path  
+            string imgPath = "ImageStorage/" + imgName;
+            //get the size in bytes that  
+
+            int imgSize = FileUpload1.PostedFile.ContentLength;
+
+            //validates the posted file before saving  
+            if (FileUpload1.PostedFile != null && FileUpload1.PostedFile.FileName != "")
+            {
+                // 10240 KB means 10MB, You can change the value based on your requirement  
+                if (FileUpload1.PostedFile.ContentLength > 10240)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('File is too big.')", true);
+                }
+                else
+                {
+                    //then save it to the Folder  
+                    FileUpload1.SaveAs(Server.MapPath(imgPath));
+                    Image1.ImageUrl = "~/" + imgPath;
+                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Image saved!')", true);
+                }
+
+            }
+        }
+
 
         protected void openProfile(object sender, EventArgs e)
         {

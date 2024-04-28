@@ -7,29 +7,40 @@
     <link rel="stylesheet" href="StyleSheet1.css" type="text/css" />
     <script type="text/javascript" src="anasayfa.js"></script>
     <title></title>
+    <style type="text/css">
+        #Buttonimage2 {}
+    </style>
 </head>
 <body>
     <script type="text/javascript">
         function postClicked(postId) {
             alert(postId)
             
-            window.location = `./post?postId=${postId}`
+            window.location = `./Comments?postId=${postId}`
         }
     </script>
-     <input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclientclick="return postClicked(12)" />
+     <%--<input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclientclick="return postClicked(12)" />--%>
     <div id="container">
+
+
+
      <div id="left-region">
            <div class="user-avatar-big" style="margin:40px;">
       <div class="user-avatar" style="height: 100%; width: 100%;">
           <asp:Image ID="Image1" runat="server" ImageUrl="" />
       </div>
       <asp:Label id="userInfo2" runat="server" Text=""></asp:Label>
-
+              
   </div>
-
-   
-
-         </div>
+         <%-- ADD TO PROFILE PAGE  --%>
+               <%--<form ID="FileUp"  >--%>
+     <%--<input id="FileUpload12" type="file" runat="server" NAME="FileUpload12"/>--%>
+       <%-- <asp:FileUpload ID="FileUpload1" runat="server" />  --%>
+<%--<input type="button" ID="Buttonimage2" runat="server" Text="Upload" onclick="Button_image_Upload"/>--%>  
+<br />  
+<%--<asp:Image ID="Image3" runat="server" />--%>  
+                   <%--</form>--%>
+  </div>
           <div id="middle-region">
 
                <div class="horizontal-middle-line">               
@@ -49,11 +60,12 @@
          </div>
          <div class="right-column">
              <div class="upper-row">
-                 <asp:TextBox ID="desc" runat="server" TextMode="MultiLine" Rows="5" Columns="50" placeholder="Paylaş..." CssClass="post-description" />
+                 <asp:TextBox ID="desc" runat="server" TextMode="MultiLine" Rows="5" Columns="50" placeholder="Paylaş..." CssClass="post-description"  />
              </div>
              <div class="lower-row">
                  <%--<asp:Button ID="sendButton" runat="server" Text="" CssClass="--%>
                  <asp:Button ID="sendButton" runat="server" Text="" CssClass="send-button" OnClick="PostMessage" />
+               
              </div>
          </div>
      </div>
