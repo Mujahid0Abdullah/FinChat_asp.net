@@ -43,7 +43,7 @@
   </div>
           <div id="middle-region">
 
-               <div class="horizontal-middle-line">               
+               <div class="horizontal-middle-line" style="position:sticky ; top:0; z-index:9999; padding-top:3px; padding-bottom:-2px">               
                     <div style="font-size: 36px;" id="finChatTitle">FinChat</div>   
             </div>
 
@@ -53,7 +53,7 @@
          <div class="left-column">
              <div class="user-avatar-big">
                  <div class="user-avatar" style="height: 100%; width: 100%;">
-                     <asp:Image ID="Image2" runat="server" ImageUrl="" />
+                     <asp:ImageButton ID="Image2" runat="server" ImageUrl="" OnClick="openProfile" />
                  </div>
              </div>
              <div id="Div2" runat="server" class="user-name"></div>

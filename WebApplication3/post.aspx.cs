@@ -125,42 +125,42 @@ namespace WebApplication3
 
              protected void Button_image_Upload(object sender, EventArgs e)
         {
-            StartUpLoad();
+         //   StartUpLoad();
         }
 
-        private void StartUpLoad()
-        {
-            //get the file name of the posted image  
-            string imgName = FileUpload1.FileName;
-            //sets the image path  
-            string imgPath = "ImageStorage/" + imgName;
-            //get the size in bytes that  
+        //private void StartUpLoad()
+        //{
+        //    //get the file name of the posted image  
+        //   //// string imgName = FileUpload1.FileName;
+        //    //sets the image path  
+        //    //string imgPath = "ImageStorage/" + imgName;
+        //    //get the size in bytes that  
 
-            int imgSize = FileUpload1.PostedFile.ContentLength;
+        //   // int imgSize = FileUpload1.PostedFile.ContentLength;
 
-            //validates the posted file before saving  
-            if (FileUpload1.PostedFile != null && FileUpload1.PostedFile.FileName != "")
-            {
-                // 10240 KB means 10MB, You can change the value based on your requirement  
-                if (FileUpload1.PostedFile.ContentLength > 10240)
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('File is too big.')", true);
-                }
-                else
-                {
-                    //then save it to the Folder  
-                    FileUpload1.SaveAs(Server.MapPath(imgPath));
-                    Image1.ImageUrl = "~/" + imgPath;
-                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Image saved!')", true);
-                }
+        //    //validates the posted file before saving  
+        //    if (FileUpload1.PostedFile != null && FileUpload1.PostedFile.FileName != "")
+        //    {
+        //        // 10240 KB means 10MB, You can change the value based on your requirement  
+        //        if (FileUpload1.PostedFile.ContentLength > 10240)
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('File is too big.')", true);
+        //        }
+        //        else
+        //        {
+        //            //then save it to the Folder  
+        //            FileUpload1.SaveAs(Server.MapPath(imgPath));
+        //            Image1.ImageUrl = "~/" + imgPath;
+        //            Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Image saved!')", true);
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
 
         protected void openProfile(object sender, EventArgs e)
         {
-            Response.Redirect("login.aspx");
+            Response.Redirect("profile.aspx");
         }
 
         protected void PostMessage(object sender, EventArgs e)
