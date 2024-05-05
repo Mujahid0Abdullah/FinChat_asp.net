@@ -1,31 +1,35 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="post.aspx.cs" Inherits="WebApplication3.post" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="post.aspx.cs" Inherits="WebApplication3.post" MasterPageFile="~/Site.Master" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content2" ContentPlaceHolderID="head"
+runat="server">
+     <link rel="stylesheet" type="text/css" href="StyleSheet1.css?t=<%= DateTime.Now.Ticks %>" media="screen" />
+ <script type="text/javascript" src="anasayfa.js"></script>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <%--<link rel="stylesheet" href="StyleSheet1.css" type="text/css" />--%>
-    <link rel="stylesheet" type="text/css" href="StyleSheet1.css?t=<%= DateTime.Now.Ticks %>" media="screen" />
-    <script type="text/javascript" src="anasayfa.js"></script>
-    <title></title>
-    <style type="text/css">
-        #Buttonimage2 {}
+    <style>
+        container body-content{
+            margin:0 !important;
+        }
     </style>
-</head>
-<body>
-    <script type="text/javascript">
-        function postClicked(postId) {
-          
-            
-            window.location = `./Comments?postId=${postId}`
-        }
-        function openHisProfilePage(userId) {
-            
 
-            window.location = `./autherProfile?userId=${userId}`
-        }
+</asp:Content>
 
-    </script>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+        <script type="text/javascript">
+            function postClicked(postId) {
+
+
+                window.location = `./Comments?postId=${postId}`
+            }
+            function openHisProfilePage(userId) {
+
+
+                window.location = `./autherProfile?userId=${userId}`
+            }
+
+        </script>
      <%--<input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclientclick="return postClicked(12)" />--%>
     <div id="container">
 
@@ -51,11 +55,11 @@
           <div id="middle-region">
 
                <div class="horizontal-middle-line" style="position:sticky ; top:0; z-index:9999; padding-top:3px; padding-bottom:-2px">               
-                    <div style="font-size: 36px;" id="finChatTitle">FinChat</div>   
+                   
             </div>
 
 
-               <form ID="postForm" runat="server" DefaultButton="sendButton">
+               <div ID="postForm" runat="server" DefaultButton="sendButton">
      <div class="share-post">
          <div class="left-column">
              <div class="user-avatar-big">
@@ -71,7 +75,7 @@
              </div>
              <div class="lower-row">
                  <%--<asp:Button ID="sendButton" runat="server" Text="" CssClass="--%>
-                 <asp:Button ID="sendButton" runat="server" Text="" CssClass="send-button" OnClick="PostMessage" />
+                 <asp:Button ID="sendButton"  runat="server" Text="" CssClass="send-button" OnClick="PostMessage" />
                
              </div>
          </div>
@@ -81,7 +85,7 @@
 
 
 
- </form>
+ </div>
 
                <div id="postsList" runat="server">
 
@@ -89,8 +93,14 @@
               </div>
 
           <div id="right-region">
+
+
+
               </div>
 
         </div>
-</body>
-</html>
+
+
+</asp:Content>
+
+
