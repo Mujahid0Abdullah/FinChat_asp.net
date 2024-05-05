@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color:#f0f2f5
+    background-color: #f0f2f5
 }
 
 #container {
@@ -46,7 +46,7 @@ body {
     position: static;
     left: 0;
     right: 0;
-    border-radius:10%;
+    border-radius: 10%;
     top: 120px;
     width: 95%;
     height: 200px;
@@ -65,7 +65,7 @@ body {
     right: 0;
     top: 120px;
     width: 95%;
-    max-width:400px;
+    max-width: 400px;
     height: 200px;
     border-radius: 12px;
     box-shadow: 2px 2px black;
@@ -168,7 +168,6 @@ body {
 .left-column {
     flex: 1;
     flex-direction: column;
-    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,7 +250,6 @@ body {
     background: url(./photos/send.png);
     background-repeat: round;
     background-size: auto;
-    
     /* Arkaplan rengini kaldırıyoruz */
     cursor: pointer;
 }
@@ -391,7 +389,7 @@ body {
 
 
 #dollar-icon {
-    position: left;
+   
     width: 100px;
     height: 100px;
     bottom: -10px;
@@ -404,7 +402,7 @@ body {
 
 
 #gold-icon {
-    position: left;
+    
     width: 100px;
     height: 100px;
     bottom: -10px;
@@ -415,7 +413,7 @@ body {
 }
 
 #kripto-icon {
-    position: left;
+    
     width: 100px;
     height: 100px;
     bottom: -10px;
@@ -586,6 +584,6 @@ body {
     text-align: center;
 }
 
-.button, #button31{
+.button, #button31 {
     background-color: rebeccapurple;
 }
