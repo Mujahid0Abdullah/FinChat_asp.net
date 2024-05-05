@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" href="StyleSheet1.css" type="text/css" />
+    <%--<link rel="stylesheet" href="StyleSheet1.css" type="text/css" />--%>
+    <link rel="stylesheet" type="text/css" href="StyleSheet1.css?t=<%= DateTime.Now.Ticks %>" media="screen" />
     <script type="text/javascript" src="anasayfa.js"></script>
     <title></title>
     <style type="text/css">
@@ -14,10 +15,16 @@
 <body>
     <script type="text/javascript">
         function postClicked(postId) {
-            alert(postId)
+          
             
             window.location = `./Comments?postId=${postId}`
         }
+        function openHisProfilePage(userId) {
+            
+
+            window.location = `./autherProfile?userId=${userId}`
+        }
+
     </script>
      <%--<input type="button" id="rbutton31" style='background-image: url("/user.png")' cssclass="profile-button"  onclientclick="return postClicked(12)" />--%>
     <div id="container">

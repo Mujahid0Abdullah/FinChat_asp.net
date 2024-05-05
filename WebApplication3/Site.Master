@@ -15,9 +15,26 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <style>
+        body{
+            background-color: #f0f2f5
+        }
+    </style>
 </head>
 <body>
+     <script type="text/javascript">
+     function postClicked(postId) {
+       
+         
+         window.location = `./Comments?postId=${postId}`
+     }
+     function openHisProfilePage(userId) {
+         
+
+         window.location = `./autherProfile?userId=${userId}`
+     }
+
+     </script>
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -38,6 +55,8 @@
             </Scripts>
         </asp:ScriptManager>
 
+
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark" style="padding:0">
             <div class="container">
                 <a class="navbar-brand" runat="server" style="padding:0;font-family: 'Bahnschrift Condensed', sans-serif;color:#9CC2E6;font-size: 40px;" href="~/">FinChat</a>
@@ -52,7 +71,18 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                 </div>
+                <div style="text-align: center;">
+                    <asp:TextBox runat="server" OnTextChanged="search_TextChanged" AutoPostBack="true"
+                        Style="font-size: 15px; border-radius: 50px; padding-left: 10px; display: inline-block; margin-top: 20px; border: 3px solid black;"
+                         ID="search" name="q" placeholder="Search..."> </asp:TextBox>
+                   <%--   <input 
+      Style="font-size: 15px; border-radius: 50px; padding-left: 10px; display: inline-block; margin-top: 20px; border: 3px solid black;"
+      type="text" ID="search" name="q" placeholder="Search..."/>--%>
+                     <div id="usersList" runat="server" class="view-profiles-container">
+ </div>
             </div>
+
+           
         </nav>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
@@ -66,5 +96,11 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
+
+
+
 </body>
+
+
+
 </html>

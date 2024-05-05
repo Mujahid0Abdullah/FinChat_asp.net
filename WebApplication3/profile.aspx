@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="profile.aspx.cs" Inherits="WebApplication3.WebForm1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-         <div id="left-region" style="margin:0; border-radius:15px  " >
+         <div id="profile-info" style="margin:0; border-radius:15px  " >
 <div class="user-avatar-big" style="margin:40px; display:inline-block ;  vertical-align:middle">
       <div class="user-avatar" style="height: 100%; width: 100%;" runat="server" onserverclick="Button_image_Upload">
           <asp:Image ID="Image1" runat="server" ImageUrl=""  />

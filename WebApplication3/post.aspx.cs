@@ -14,7 +14,9 @@ namespace WebApplication3
     public partial class post : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
+
         {
+            Response.Expires = -1;
             if (Session["id"] == null)
             {
                 Response.Redirect("login.aspx");
