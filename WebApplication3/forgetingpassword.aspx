@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="WebApplication3.login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="forgetingpassword.aspx.cs" Inherits="WebApplication3.forgetingpassword" %>
 
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.8">
-    <title>Login Page</title>
+    <title>Forget Password</title>
     <style>
         body {
             display: flex;
@@ -92,18 +92,31 @@
             <div class="login-title">
                 <h2>Login</h2>
             </div>
+         
+                        <div class="username-input">
+    <asp:TextBox ID="Username" runat="server" Placeholder="Username" Required="true"></asp:TextBox>
+</div>
             <div class="username-input">
-                <asp:TextBox ID="Username" runat="server" Placeholder="Username" Required="true"></asp:TextBox>
-            </div>
-            <div class="password-input">
-                <asp:TextBox ID="Password" runat="server" TextMode="Password" Placeholder="Password" Required="true"></asp:TextBox>
-            </div>
-            <asp:Button ID="loginButton" runat="server" Text="Login" CssClass="login-button" OnClick="submitLogin_Click" />
-            <p class="register-link">Don't have an account yet? <a href="./register">Register!</a>
-                <a href="./forgetingpassword">Şifre unuttun mu!</a>
+    <asp:TextBox ID="Email" runat="server" Placeholder="Email" Required="true" Style="display:inline-block"></asp:TextBox>
+<asp:Button runat="server" CssClass="login-button" OnClick="Unnamed_Click" Text="Kod gönder" />
+</div>
+             <div class="password-input">
+     <asp:TextBox ID="Kod" runat="server"  Placeholder="Kod" Required="true"></asp:TextBox>
+ </div>
+
+               <div class="username-input">
+       <asp:TextBox ID="Password" runat="server"  Placeholder="Yeni Password" Required="true"></asp:TextBox>
+   </div>
+           
+<div class="username-input">
+    <asp:TextBox ID="rPassword" runat="server"  Placeholder="Yeni Password yeniden yazın" Required="true"></asp:TextBox>
+</div>
+            <asp:Button ID="loginButton" runat="server" Text="Değiştir" CssClass="login-button" OnClick="loginButton_Click" />
+            <p class="register-link">Already have an account?  <a href="./login">Login!</a>
             </p>
         </div>
     </form>
 </body>
 </html>
+
 

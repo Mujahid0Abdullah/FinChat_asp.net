@@ -193,6 +193,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="forgetingpassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="post.aspx" />
@@ -299,6 +300,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="forgetingpassword.aspx.cs">
+      <DependentUpon>forgetingpassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="forgetingpassword.aspx.designer.cs">
+      <DependentUpon>forgetingpassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

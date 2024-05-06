@@ -90,6 +90,11 @@ namespace WebApplication3
                 Console.WriteLine(ex.Message);
             }
         }
+
+        protected void loginButton_Click(object sender, EventArgs e)
+        {
+
+        }
         //protected void submitLogin_Click(object sender, EventArgs e)
         //{
         //    // Get username and password from the form
@@ -105,7 +110,7 @@ namespace WebApplication3
         //    }
 
         //    // Define your SQL connection string (replace "YourConnectionString" with your actual connection string)
-            
+
         //    string connectionString = "Server=http://localhost;Database=webproject;User Id=root;Password=;";
 
 
@@ -140,8 +145,8 @@ namespace WebApplication3
         //    }
         //}
 
-       
 
-       
+
+
     }
 }
