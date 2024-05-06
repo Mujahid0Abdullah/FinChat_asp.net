@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,8 @@ namespace WebApplication3
                 Console.WriteLine(id);
                 GetUserinfo(id);
                 GetPost(id);
+                Getfollowed(id);
+                Getfollower(id);
                 if (Request.QueryString["userId"] != null)
                 {
                     string gg = Request.QueryString["userId"];
@@ -50,15 +53,15 @@ namespace WebApplication3
                     if (reader.Read())
                     {
                         string name = reader["name"].ToString();
-                        userInfo2.Text = "Adı: "+name;
+                        userInfo2.Text = name;
 
                         string email = reader["email"].ToString();
-                        userEmail.Text = "Email: " + email;
+                        userEmail.Text =  email;
 
                         
                         
                         string profilePic = reader["profilePic"].ToString();
-                        Image1.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
+                        Image1.ImageUrl =  profilePic;
                         
                         Console.WriteLine($"{name} {profilePic}");
                         // JavaScript tarafına değişkenleri aktar
@@ -72,6 +75,145 @@ namespace WebApplication3
             {
                 Console.WriteLine($"Error fetching user info: {ex.Message}");
             }
+        }
+
+        protected void ButtonUpdate_Click(object sender, EventArgs e)
+        {
+            string prfilepic="";
+            if (FileUpload1.HasFile)
+            {
+                prfilepic= StartUpLoad();
+            }
+
+            string name = firstnameLastname.Text;
+            string Password = password.Text;
+            string RepeatPassword = repeatPassword.Text;
+
+            if (Password == RepeatPassword && !string.IsNullOrEmpty(name))
+            {
+                // Şifreleme işlemi
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
+
+                // Kullanıcı bilgilerini güncelleme işlemi
+                
+                string query = "UPDATE users SET name=@name, password=@password , profilePic=@img WHERE id=@id";
+
+                using (MySqlConnection connection = new MySqlConnection(login.con))
+                {
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", name);
+                        command.Parameters.AddWithValue("@password", hashedPassword);
+                        command.Parameters.AddWithValue("@id", Session["id"]);
+                        command.Parameters.AddWithValue("@img", prfilepic);
+
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            // Güncelleme başarılı
+                            Response.Write("<script>alert('Your information has been updated');</script>");
+                            Response.Redirect(Request.RawUrl); // Sayfayı yenile
+                        }
+                        else
+                        {
+                            // Güncelleme başarısız
+                            Response.Write("<script>alert('Update failed');</script>");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Şifreler uyuşmuyor veya isim boş
+                Response.Write("<script>alert('Passwords don't match or name is empty');</script>");
+            }
+        }
+
+        protected void Getfollower(string Id)
+        {
+
+
+
+            string query = "SELECT r.* ,u.id, name, profilePic  FROM relationships r JOIN users u ON (u.id = r.followedUserId) WHERE r.followerUserId = @id";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", Id);
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        string followHtml = "";
+                        while (reader.Read())
+                        {
+                            followHtml += $@"  <div class=""follow-view-profiles"">
+            <div class=""left-column-vp"">
+              <div class=""user-avatar-vp"" onclick=""openHisProfilePage({reader["id"]})"">
+                <div class=""user-avatar""  style=""height: 100%; width: 100%;"">
+                <img src='{reader["profilePic"]}'>
+                </div>
+              </div>
+            </div>
+            <div class=""right-column-vp"">
+              {reader["name"]}
+            </div>
+          </div>";
+                        }
+                        followerList.InnerHtml = followHtml;
+                        reader.Close();
+                    }
+
+
+
+                }
+            }
+
+        }
+
+        protected void Getfollowed(string Id)
+        {
+
+
+
+            // postDetails değişkeni örnek olarak bir postun detaylarını içeriyor olsun
+            // Bu verileri veritabanından almak için gerekli sorgu çalıştırılır
+            string query = "SELECT r.* ,u.id, name, profilePic  FROM relationships r JOIN users u ON (u.id = r.followerUserId) WHERE r.followedUserId = @id";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", Id);
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        string followHtml = "";
+                        while (reader.Read())
+                        {
+                            followHtml += $@"  <div class=""follow-view-profiles"">
+            <div class=""left-column-vp"">
+              <div class=""user-avatar-vp"" onclick=""openHisProfilePage({reader["id"]})"">
+                <div class=""user-avatar""  style=""height: 100%; width: 100%;"">
+                <img src='{reader["profilePic"]}'>
+                </div>
+              </div>
+            </div>
+            <div class=""right-column-vp"">
+              {reader["name"]}
+            </div>
+          </div>";
+                        }
+                        followedList.InnerHtml = followHtml;
+                        reader.Close();
+                    }
+
+
+
+                }
+            }
+
         }
 
 
@@ -100,7 +242,7 @@ namespace WebApplication3
                             <div class='left-column'>
                                 <div class='user-avatar-big' onclick='openHisProfilePage({reader["userId"]})'>
                                     <div class='user-avatar' style='height: 100%; width: 100%;'>
-                                        <img src='https://lh3.googleusercontent.com/d/{reader["profilePic"]}'>
+                                        <img src='{reader["profilePic"]}'>
                                     </div>
                                 </div>
                                 <div class='user-name'>{reader["name"]}</div>
@@ -111,9 +253,9 @@ namespace WebApplication3
                                 </div>
                                 <div class='lower-row'>
                                     <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
-                                    <button onclick='postClicked({reader["id"]})' id='commentsButton'>
+                                    <div onclick='postClicked({reader["id"]})' id='commentsButton'>
                                         <img src='./photos/comment.png' alt='Button Image'>
-                                    </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>";
@@ -134,12 +276,12 @@ namespace WebApplication3
              StartUpLoad();
         }
 
-        private void StartUpLoad()
+        private string StartUpLoad()
         {
             //get the file name of the posted image  
             string imgName = FileUpload1.FileName;
             //sets the image path  
-            string imgPath = "ImageStorage/" + imgName;
+            string imgPath = "ImageStorage/" + "img"+DateTime.Now.Second.ToString() + imgName ;
             //get the size in bytes that  
 
             int imgSize = FileUpload1.PostedFile.ContentLength;
@@ -168,10 +310,11 @@ namespace WebApplication3
                    
                     //then save it to the Folder  
                     FileUpload1.SaveAs(Server.MapPath(imgPath));
-                    Image1.ImageUrl = "~/" + imgPath;
-                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Image saved!')", true);
+                   
+                    currentProfilePicture.ImageUrl = imgPath;
                 }
             }
+            return imgPath;
 
         }
 

@@ -61,7 +61,7 @@ namespace WebApplication3
                                 <div class='left-column'>
                                     <div class='user-avatar-big' onclick='openHisProfilePage(" + reader["userId"] + @")'>
                                         <div class='user-avatar' style='height: 100%; width: 100%;'>
-                                            <img src='https://lh3.googleusercontent.com/d/" + reader["profilePic"] + @"'>
+                                            <img src='" + reader["profilePic"] + @"'>
                                         </div>
                                     </div>
                                     <div class='user-name'>" + reader["name"] + @"</div>
@@ -124,7 +124,7 @@ namespace WebApplication3
                 <div class='left-column'>
                     <div class='user-avatar-small'>
                         <div class='user-avatar' style='height: 100%; width: 100%;'>
-                        <img src='https://lh3.googleusercontent.com/d/{reader["userId"]}'>
+                        <img src='{reader["profilePic"]}'>
                         </div>
                     </div>
                     <div class='user-name'>{reader["name"]}</div>
@@ -174,8 +174,8 @@ namespace WebApplication3
                         userInfo2.Text = name;
 
                         string profilePic = reader["profilePic"].ToString();
-                        Image1.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
-                        Image2.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
+                        Image1.ImageUrl = profilePic;
+                        Image2.ImageUrl = profilePic;
                         Console.WriteLine($"{name} {profilePic}");
                         // JavaScript tarafına değişkenleri aktar
                         //string script = $"setUserInfo('{name}', '{profilePic}');";

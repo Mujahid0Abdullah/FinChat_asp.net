@@ -53,12 +53,42 @@ namespace WebApplication3
                         string postsHtml = "";
                         while (reader.Read())
                         {
+                            //                        postsHtml += $@"<div class=""card"">
+                            //    <div class=""top"">
+                            //        <div class=""user_details"" onclick='openHisProfilePage({reader["userId"]})'>
+                            //            <div class=""profile_img"">
+                            //                <img src='{reader["profilePic"]}' alt=""user"" class=""cover"">
+                            //            </div>
+                            //            <h3>{reader["name"]}</h3>
+
+                            //        </div>
+
+                            //    </div>
+                            //    <h4 class=""message"">{reader["desc"]}</h4>
+                            //    <div class=""imgBg"">
+                            //        <img  src='./photos/comment.png' alt=""bg"" class=""coverFull"">
+                            //    </div>
+                            //    <div class=""btns"">
+
+                            //        <div class=""right"">
+                            //            <h4>919 comments 500 shares</h4>
+                            //        </div>
+                            //    </div>
+                            //    <div class=""border""></div>
+                            //    <div class=""icon"">
+                            //        <div class=""like"">             
+                            //            <img  src='./photos/comment.png' alt=""comments"">           
+                            //        </div>
+                            //    </div>
+                            //    <div class=""border_bott""></div>
+                            //</div>";
+
                             postsHtml += $@"
                         <div class='post-view'>
                             <div class='left-column'>
                                 <div class='user-avatar-big' onclick='openHisProfilePage({reader["userId"]})'>
                                     <div class='user-avatar' style='height: 100%; width: 100%;'>
-                                        <img src='https://lh3.googleusercontent.com/d/{reader["profilePic"]}'>
+                                        <img src='{reader["profilePic"]}'>
                                     </div>
                                 </div>
                                 <div class='user-name'>{reader["name"]}</div>
@@ -69,9 +99,9 @@ namespace WebApplication3
                                 </div>
                                 <div class='lower-row'>
                                     <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
-                                    <button onclick='postClicked({reader["id"]})' id='commentsButton'>
+                                    <div onclick='postClicked({reader["id"]})' id='commentsButton'>
                                         <img src='./photos/comment.png' alt='Button Image'>
-                                    </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>";
@@ -106,8 +136,8 @@ namespace WebApplication3
                         userInfo2.Text = name;
 
                         string profilePic = reader["profilePic"].ToString();
-                        Image1.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
-                        Image2.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
+                        Image1.ImageUrl =  profilePic;
+                        Image2.ImageUrl =  profilePic;
                         Console.WriteLine($"{name} {profilePic}");  
                         // JavaScript tarafına değişkenleri aktar
                         //string script = $"setUserInfo('{name}', '{profilePic}');";
@@ -170,39 +200,45 @@ namespace WebApplication3
             string Desc = desc.Text.Trim();
             Console.WriteLine($"{Desc}");
             string userId = Session["id"].ToString(); // Kullanıcı kimliğinizi buraya ekleyin
-
-            try
+            if (Desc == null || Desc == "")
             {
-              
-                using (MySqlConnection connection = new MySqlConnection(login.con))
+                Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Boş Post Olmaz!')", true);
+            }
+            else
+            {
+                try
                 {
-                    connection.Open();
-                    string query = "INSERT INTO posts (`desc`, `img`, `userId`, `createdAt`) VALUES (@Desc, @Img, @UserId, @CreatedAt)";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Desc", Desc);
-                    command.Parameters.AddWithValue("@Img", "1"); // Örnek resim yolu
-                    command.Parameters.AddWithValue("@UserId", userId);
-                    command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    if (rowsAffected > 0)
+                    using (MySqlConnection connection = new MySqlConnection(login.con))
                     {
-                        // Post başarıyla eklendi
-                        Response.Redirect("post.aspx", false);  // Sayfayı yenile
-                        Context.ApplicationInstance.CompleteRequest();
-                    }
-                    else
-                    {
-                        // Post eklenirken bir hata oluştu
-                        // Hata mesajı gösterilebilir veya uygun şekilde işlenebilir
-                        Console.WriteLine("post add hata oldu");
+                        connection.Open();
+                        string query = "INSERT INTO posts (`desc`, `img`, `userId`, `createdAt`) VALUES (@Desc, @Img, @UserId, @CreatedAt)";
+                        MySqlCommand command = new MySqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@Desc", Desc);
+                        command.Parameters.AddWithValue("@Img", "1"); // Örnek resim yolu
+                        command.Parameters.AddWithValue("@UserId", userId);
+                        command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            // Post başarıyla eklendi
+                            Response.Redirect("post.aspx", false);  // Sayfayı yenile
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
+                        else
+                        {
+                            // Post eklenirken bir hata oluştu
+                            // Hata mesajı gösterilebilir veya uygun şekilde işlenebilir
+                            Console.WriteLine("post add hata oldu");
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Hata oluştuğunda yapılacak işlemler buraya yazılır
-                Console.WriteLine($"Error adding post: {ex.Message}");
+                catch (Exception ex)
+                {
+                    // Hata oluştuğunda yapılacak işlemler buraya yazılır
+                    Console.WriteLine($"Error adding post: {ex.Message}");
+                }
             }
         }
     

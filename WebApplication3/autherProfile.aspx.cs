@@ -40,6 +40,8 @@ namespace WebApplication3
                     }
                     string gg = Request.QueryString["userId"];
                     GetPost(Request.QueryString["userId"]);
+                    Getfollowed(Request.QueryString["userId"]);
+                        Getfollower(Request.QueryString["userId"]);
                     Console.WriteLine(Request.QueryString["userId"]);
                     UpdateButtonState(followerUserId, followedUserId);
                 }
@@ -49,6 +51,92 @@ namespace WebApplication3
                 }
             }
         }
+
+
+        protected void Getfollower(string Id)
+        {
+
+
+
+            string query = "SELECT r.* ,u.id, name, profilePic  FROM relationships r JOIN users u ON (u.id = r.followedUserId) WHERE r.followerUserId = @id";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", Id);
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        string followHtml = "";
+                        while (reader.Read())
+                        {
+                            followHtml += $@"  <div class=""follow-view-profiles"">
+            <div class=""left-column-vp"">
+              <div class=""user-avatar-vp"" onclick=""openHisProfilePage({reader["id"]})"">
+                <div class=""user-avatar""  style=""height: 100%; width: 100%;"">
+                <img src='{reader["profilePic"]}'>
+                </div>
+              </div>
+            </div>
+            <div class=""right-column-vp"">
+              {reader["name"]}
+            </div>
+          </div>";
+                        }
+                        followerList.InnerHtml = followHtml;
+                        reader.Close();
+                    }
+
+
+
+                }
+            }
+
+        }
+
+        protected void Getfollowed(string Id)
+        {
+
+
+
+            // postDetails değişkeni örnek olarak bir postun detaylarını içeriyor olsun
+            // Bu verileri veritabanından almak için gerekli sorgu çalıştırılır
+            string query = "SELECT r.* ,u.id, name, profilePic  FROM relationships r JOIN users u ON (u.id = r.followerUserId) WHERE r.followedUserId = @id";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", Id);
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        string followHtml = "";
+                        while (reader.Read())
+                        {
+                            followHtml += $@"  <div class=""follow-view-profiles"">
+            <div class=""left-column-vp"">
+              <div class=""user-avatar-vp"" onclick=""openHisProfilePage({reader["id"]})"">
+                <div class=""user-avatar""  style=""height: 100%; width: 100%;"">
+                <img src='{reader["profilePic"]}'>
+                </div>
+              </div>
+            </div>
+            <div class=""right-column-vp"">
+              {reader["name"]}
+            </div>
+          </div>";
+                        }
+                        followedList.InnerHtml = followHtml;
+                        reader.Close();
+                    }
+
+
+
+                }
+            }
+
+        }
+
 
         protected void FollowButton_Click(object sender, EventArgs e)
         {
@@ -211,7 +299,7 @@ namespace WebApplication3
 
 
                         string profilePic = reader["profilePic"].ToString();
-                        Image1.ImageUrl = "https://lh3.googleusercontent.com/d/" + profilePic;
+                        Image1.ImageUrl = profilePic;
 
                         Console.WriteLine($"{name} {profilePic}");
                         // JavaScript tarafına değişkenleri aktar
@@ -253,7 +341,7 @@ namespace WebApplication3
                             <div class='left-column'>
                                 <div class='user-avatar-big' onclick='openHisProfilePage({reader["userId"]})'>
                                     <div class='user-avatar' style='height: 100%; width: 100%;'>
-                                        <img src='https://lh3.googleusercontent.com/d/{reader["profilePic"]}'>
+                                        <img src='{reader["profilePic"]}'>
                                     </div>
                                 </div>
                                 <div class='user-name'>{reader["name"]}</div>
@@ -264,9 +352,9 @@ namespace WebApplication3
                                 </div>
                                 <div class='lower-row'>
                                     <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
-                                    <button onclick='postClicked({reader["id"]})' id='commentsButton'>
+                                    <div onclick='postClicked({reader["id"]})' id='commentsButton'>
                                         <img src='./photos/comment.png' alt='Button Image'>
-                                    </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>";

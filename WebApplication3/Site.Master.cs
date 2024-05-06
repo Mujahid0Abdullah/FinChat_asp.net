@@ -97,7 +97,7 @@ namespace WebApplication3
     <div class='left-column-vp'>
         <div class='user-avatar-vp' onclick='openHisProfilePage({reader["id"]})'>
             <div class='user-avatar' style='height: 100%; width: 100%;'>
-                <img src='https://lh3.googleusercontent.com/d/{reader["profilePic"]}'>
+                <img src='{reader["profilePic"]}'>
             </div>
         </div>
     </div>
@@ -125,6 +125,15 @@ namespace WebApplication3
         protected void search_TextChanged(object sender, EventArgs e)
         {
             FindUser(search.Text);
+        }
+
+        protected void logout(object sender, ImageClickEventArgs e)
+        {
+            Session.Clear(); // Oturum değişkenlerini temizler
+            Session.Abandon(); // Oturumu sonlandırır
+
+            // Kullanıcıyı giriş sayfasına yönlendir
+            Response.Redirect("Login.aspx");
         }
     }
 }

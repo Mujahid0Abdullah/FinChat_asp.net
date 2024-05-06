@@ -5,6 +5,29 @@ body {
     background-color: #f0f2f5
 }
 
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
 #container {
     display: flex;
     height: 100vh;
@@ -25,6 +48,7 @@ body {
     overflow: auto;
     min-width: 500px;
     max-width: 960px;
+    margin-top:16px;
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -55,7 +79,7 @@ body {
 
 #right-region {
     flex: 6;
-    background-color: #595959;
+    background-color: currentColor;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,11 +90,10 @@ body {
 
 
 
-.share-post {
+.share-post  {
     position: static;
     left: 0;
     right: 0;
-    
     top: 120px;
     width: 95%;
     height: 200px;
@@ -78,9 +101,10 @@ body {
     background-color: white;
     display: flex;
     position: center;
-    margin-left: 30px;
-    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .8);
+  
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .post-view {
@@ -104,19 +128,20 @@ body {
 }
 
 .share-comment {
-    position: static;
+      position: static;
     left: 0;
     right: 0;
     top: 120px;
     width: 95%;
-    height: 150px;
+    height: 200px;
     border: 2px solid black;
     background-color: white;
     display: flex;
     position: center;
-    margin-left: 30px;
-    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .8);
+  
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .shared-comment {
@@ -175,11 +200,39 @@ body {
 
 }
 
+.follow-view-profiles {
+    position: static;
+    left: 0;
+    right: 0;
+    top: 120px;
+    max-width: 900px;
+    height: 50px;
+    background-color: inherit;
+    display: flex;
+    position: center;
+    margin-left: 10px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    align-items: center;
+    overflow-y: auto; /* Dikey scroll bar ekleme */
+    margin-top: 10px;
+    color:black;
+}
+
+    .follow-view-profiles .right-column-vp {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Bahnschrift Condensed';
+        color: black;
+    }
+
+
 .right-column-vp {
     flex: 3;
     display: flex;
     flex-direction: column;
-    color:aliceblue;
+    color: aliceblue;
 }
 
 .left-column-vp {
@@ -225,6 +278,7 @@ body {
     height: 150px;
     border-radius: 50%;
     background-color: lightgray;
+    cursor: pointer;
     overflow: hidden;
     margin-top: 10px;
 }
@@ -429,7 +483,7 @@ body {
 
 
 #dollar-icon {
-   
+    object-fit: cover;
     width: 100px;
     height: 100px;
     bottom: -10px;
@@ -442,10 +496,10 @@ body {
 
 
 #gold-icon {
-    
     width: 100px;
     height: 100px;
     bottom: -10px;
+    object-fit: cover;
     left: 50%;
     padding-top: 0px;
     transform: translateX(-50%);
@@ -453,7 +507,7 @@ body {
 }
 
 #kripto-icon {
-    
+    object-fit: cover;
     width: 100px;
     height: 100px;
     bottom: -10px;
@@ -506,6 +560,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease;
+    margin-left:15px;
 }
 
     .popup-content:hover {
@@ -552,7 +607,7 @@ body {
     padding: 10px;
 }
 
-#save-btn {
+#save-btn, .save-btn {
     background-color: #9CC2E6;
     color: white;
     padding: 10px 20px;
@@ -586,6 +641,8 @@ body {
     margin: 0;
     padding-left: 80px;
     color: white;
+    font-family: 'Bahnschrift Condensed';
+    font-size:17px;
 }
 
 #firstnameLastname {
@@ -606,7 +663,7 @@ body {
     padding: 10px;
 }
 
-#save-btn {
+#save-btn, .save-btn, input[type=file]::file-selector-button {
     background-color: #9CC2E6;
     color: white;
     padding: 10px 20px;
@@ -615,6 +672,8 @@ body {
     cursor: pointer;
     border: 2px;
 }
+
+
 
 #finChatTitle {
     font-size: 40px;
