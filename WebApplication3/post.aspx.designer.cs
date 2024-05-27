@@ -15,6 +15,33 @@ namespace WebApplication3
     {
 
         /// <summary>
+        /// SiteMapPathHaritaNesnesi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPathHaritaNesnesi;
+
+        /// <summary>
+        /// TreeViewMenuNesnesi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView TreeViewMenuNesnesi;
+
+        /// <summary>
+        /// SiteMapDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapDataSource SiteMapDataSource;
+
+        /// <summary>
         /// Image1 control.
         /// </summary>
         /// <remarks>

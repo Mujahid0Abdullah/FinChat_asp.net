@@ -90,29 +90,33 @@
     <form id="loginForm" runat="server" onsubmit="submitLogin">
         <div class="login-container">
             <div class="login-title">
-                <h2>Login</h2>
+                <h2>Şifre Değiştirme</h2>
             </div>
          
                         <div class="username-input">
     <asp:TextBox ID="Username" runat="server" Placeholder="Username" Required="true"></asp:TextBox>
 </div>
             <div class="username-input">
-    <asp:TextBox ID="Email" runat="server" Placeholder="Email" Required="true" Style="display:inline-block"></asp:TextBox>
-<asp:Button runat="server" CssClass="login-button" OnClick="Unnamed_Click" Text="Kod gönder" />
+    <asp:TextBox ID="Email" runat="server" Placeholder="Email" Required="true" Style="display:inline-block ;padding-left:70px"></asp:TextBox>
+<asp:Button runat="server" CssClass="login-button" OnClick="Unnamed_Click" Text="Kod gönder"  style="margin-top: 0;
+    width: 70px;
+    font-size: 8px;
+    padding: 12px;
+    height: 50px;"/>
 </div>
              <div class="password-input">
-     <asp:TextBox ID="Kod" runat="server"  Placeholder="Kod" Required="true"></asp:TextBox>
+     <asp:TextBox ID="Kod" runat="server"  Placeholder="Kod" ></asp:TextBox>
  </div>
 
                <div class="username-input">
-       <asp:TextBox ID="Password" runat="server"  Placeholder="Yeni Password" Required="true"></asp:TextBox>
+       <asp:TextBox ID="Password" runat="server"  Placeholder="Yeni Password" ></asp:TextBox>
    </div>
            
 <div class="username-input">
-    <asp:TextBox ID="rPassword" runat="server"  Placeholder="Yeni Password yeniden yazın" Required="true"></asp:TextBox>
+    <asp:TextBox ID="rPassword" runat="server"  Placeholder="Yeni Password yeniden yazın" ></asp:TextBox>
 </div>
             <asp:Button ID="loginButton" runat="server" Text="Değiştir" CssClass="login-button" OnClick="loginButton_Click" />
-            <p class="register-link">Already have an account?  <a href="./login">Login!</a>
+            <p class="register-link">Şifre Hatırladınız mı?  <a href="./login">Login!</a>
             </p>
         </div>
     </form>

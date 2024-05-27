@@ -18,17 +18,21 @@ namespace WebApplication3
         }
      
 
-        protected void p() {
-            // Get username and password from the form
+        protected void update() {
             string username = Username.Text;
             string email = Email.Text;
             string password = Password.Text;
             string RepeatPassword = rPassword.Text;
             string k = Session["kod"].ToString();
-            if (!string.IsNullOrEmpty(Kod.Text) && Kod.Text.Trim() == Session["kod"].ToString() && !string.IsNullOrEmpty(Password.Text) && password == RepeatPassword)
+            if (!string.IsNullOrEmpty(Kod.Text) && !string.IsNullOrEmpty(Password.Text) && password == RepeatPassword)
+
             {
-                // Şifreleme işlemi
-                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password.Text);
+
+
+                if (Kod.Text.Trim() == Session["kod"].ToString()) { 
+
+                    // Şifreleme işlemi
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password.Text);
 
                 // Kullanıcı bilgilerini güncelleme işlemi
 
@@ -60,17 +64,27 @@ namespace WebApplication3
                         }
                     }
                 }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Doğrulama Kodu yanlış');</script>");
+
+                }
 
 
 
 
+            }
+            else
+            {
+                Response.Write("<script>alert('Tüm alanları Doldurun');</script>");
             }
           
         }
 
 
 
-        protected void ema()
+        protected void email_at()
         {
 
           
@@ -172,12 +186,12 @@ namespace WebApplication3
 
         protected void Unnamed_Click(object sender, EventArgs e)
         {
-            ema();
+            email_at();
         }
 
         protected void loginButton_Click(object sender, EventArgs e)
         {
-            p();
+            update();
         }
     }
 }

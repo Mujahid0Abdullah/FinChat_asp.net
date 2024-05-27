@@ -22,18 +22,18 @@ namespace WebApplication3
         {
 
            
-            // Get username and password from the form
+           
             string username = Username.Text;
             string password = Password.Text;
             string email = Email.Text;
             string name = Name.Text;
             Console.WriteLine(password);
             
-            // Validate username and password (optional, can be done on client-side too)
+            // username and password boş değil 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                // Display error message
-                ScriptManager.RegisterStartupScript(this, GetType(), "InvalidInput", "alert('Please enter username and password.');", true);
+               
+                ScriptManager.RegisterStartupScript(this, GetType(), "InvalidInput", "alert('username ve password doldurun.');", true);
                 return;
             }
 
@@ -68,7 +68,7 @@ namespace WebApplication3
 
 
 
-                        // Insert new user
+                        // yeni kullanıcı kayıt 
                         string queryInsertUser = "INSERT INTO users (username, email, password, name) VALUES (@Username, @Email, @Password, @Name)";
                         MySqlCommand commandInsertUser = new MySqlCommand(queryInsertUser, connection);
                         commandInsertUser.Parameters.AddWithValue("@Username", username);
@@ -76,10 +76,10 @@ namespace WebApplication3
                         commandInsertUser.Parameters.AddWithValue("@Password", hashedPassword);
                         commandInsertUser.Parameters.AddWithValue("@Name", name);
                         commandInsertUser.ExecuteNonQuery();
-                        // Password correct, redirect to home page
+
+                        // login sayfasına yollandırmak 
                         Response.Write("<script>alert('kullanıcı oluşturuldu..');window.location = 'login.aspx';</script>");
-                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('kullanıcı oluşturuldu')", true);
-                        //Response.Redirect("login.aspx");
+                       
 
                     }
                    

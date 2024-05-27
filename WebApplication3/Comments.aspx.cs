@@ -72,9 +72,7 @@ namespace WebApplication3
                                     </div>
                                     <div class='lower-row'>
                                         <div style='font-weight: normal; font-size: 12px;' readonly>" + reader["createdAt"] + @"</div>
-                                        <button onclick='postClicked(" + reader["id"] + @")' id='commentsButton'>
-                                            <img src='https://fin-chat.onrender.com/static/comment.png' alt='Button Image'>
-                                        </button>
+                                      
                                     </div>
                                 </div>
                             </div>";

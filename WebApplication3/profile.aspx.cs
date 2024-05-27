@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -21,6 +22,7 @@ namespace WebApplication3
             }
             else
             {
+
                 string id = Session["id"].ToString();
                 Console.WriteLine(id);
                 GetUserinfo(id);
@@ -75,6 +77,20 @@ namespace WebApplication3
             {
                 Console.WriteLine($"Error fetching user info: {ex.Message}");
             }
+        }
+
+        protected void postDeleteClicked(object sender, EventArgs e) {
+            string id = ((Button)sender).Attributes["data-post-id"];
+            if (id != null)
+            {
+                postDelete(id);
+            }
+            else
+            {
+                // Handle case where data-post-id is not set
+                Response.Write("<script>alert('Error: Post ID not found');</script>");
+            }
+     
         }
 
         protected void ButtonUpdate_Click(object sender, EventArgs e)
@@ -215,7 +231,32 @@ namespace WebApplication3
             }
 
         }
+        protected void postDelete(string Id)
+        {
+            string q = "DELETE FROM posts WHERE id=@Id";
+            using (MySqlConnection connection = new MySqlConnection(login.con))
+            {
+                using (MySqlCommand command = new MySqlCommand(q, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", Id);
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
 
+                    if (rowsAffected > 0)
+                    {
+                        //  başarılı
+                        Response.Write("<script>alert('post silindi');</script>");
+                        Response.Redirect(Request.RawUrl); // Sayfayı yenile
+                    }
+                    else
+                    {
+                        //  başarısız
+                        Response.Write("<script>alert('silme işlemi başarlı değil');</script>");
+                    }
+                }
+            }
+        }
+                    
 
         protected void GetPost(string Id)
         {
@@ -253,9 +294,17 @@ namespace WebApplication3
                                 </div>
                                 <div class='lower-row'>
                                     <div style='font-weight: normal; font-size: 12px;' readonly>{reader["createdAt"]}</div>
-                                    <div onclick='postClicked({reader["id"]})' id='commentsButton'>
+                                    <div runat=server onclick='postClicked({reader["id"]})' id='commentsButton'>
                                         <img src='./photos/comment.png' alt='Button Image'>
                                     </div>
+
+                                    <div runat=server  id='commentsButton'>
+                                        <img src='./photos/delete.png' alt='Button Image'>
+                                    </div>
+<asp:Button ID='btnDeletePost' runat='server' Text='Delete Post' 
+    onclick='postDeleteClicked(this)' 
+    CssClass='delete-button' 
+    data-post-id='{reader["id"]}' />
                                 </div>
                             </div>
                         </div>";

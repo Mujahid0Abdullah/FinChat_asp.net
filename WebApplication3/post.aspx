@@ -263,6 +263,13 @@ input[type="text"]{
 
 
      <div id="left-region">
+         <div style=" display:block; " >
+           <asp:SiteMapPath ID="SiteMapPathHaritaNesnesi" runat="server">
+          
+</asp:SiteMapPath>
+         <asp:TreeView ID="TreeViewMenuNesnesi" runat="server" DataSourceID="SiteMapDataSource"> </asp:TreeView> 
+        <asp:SiteMapDataSource ID="SiteMapDataSource" runat="server" />
+             </div>
            <div class="user-avatar-big" style="margin:40px;">
       <div class="user-avatar" style="height: 100%; width: 100%;">
           <asp:Image ID="Image1" runat="server" ImageUrl="" />
@@ -360,7 +367,7 @@ margin: auto;" runat="server" Text=""></asp:Label>
           function getExchangeRates() {
               console.log('İstek başarılı bir şekilde atıldı');
 
-              // JSON verisini çekelim
+              // JSON
               fetch('https://finans.truncgil.com/v3/today.json')
                   .then(response => response.json())
                   .then(data => {
@@ -382,7 +389,7 @@ margin: auto;" runat="server" Text=""></asp:Label>
 
 
 
-                      // Bir sonraki isteği 10 saniye sonra atalım
+                      // todo: Bir sonraki isteği 10 saniye sonra atalım
 
                   })
                   .catch(error => console.error('Veri alınamadı:', error));
@@ -393,7 +400,7 @@ margin: auto;" runat="server" Text=""></asp:Label>
 
 
 
-              // CoinGecko API'sinden veri çekme
+              // Coin API veri çekme
               fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,ripple,dogecoin&vs_currencies=try')
                   .then(response => {
                       if (!response.ok) {
@@ -404,16 +411,16 @@ margin: auto;" runat="server" Text=""></asp:Label>
                   .then(data => {
 
                       console.log(data.bitcoin.try)
-                      // Kripto paraların fiyatlarını alm
+                      // Kripto fiyatlarını 
                       document.getElementById('bitcoin').textContent = "Bitcoin: " + data.bitcoin.try;
                       document.getElementById('Ethereum').textContent = "Ethereum: " + data.ethereum.try;
                       document.getElementById('Litecoin').textContent = "Litecoin: " + data.litecoin.try;
                       document.getElementById('Dogecoin').textContent = "Dogecoin: " + data.dogecoin.try;
 
-                      // İstek başarılı olduğunda konsola mesaj yazdırma
+                      
                       console.log('İstek başarıyla yapıldı.');
 
-                      // İstek sayısını artırma
+                     
 
                   })
                   .catch(error => {

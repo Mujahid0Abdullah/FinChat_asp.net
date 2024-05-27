@@ -89,7 +89,7 @@
     <form id="loginForm" runat="server" onsubmit="submitLogin">
         <div class="login-container">
             <div class="login-title">
-                <h2>Login</h2>
+                <h2>Kayıt ol</h2>
             </div>
             <div class="username-input">
                 <asp:TextBox ID="Username" runat="server" Placeholder="Username" Required="true"></asp:TextBox>

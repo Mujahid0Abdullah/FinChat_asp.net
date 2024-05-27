@@ -25,7 +25,7 @@
         <div style="padding-left: 9px; display: inline-block; vertical-align: middle; height: 150px;min-width:200px">
             <label id="follower"
                 style="  font-size: 18px;
-  font-family: 'Bahnschrift Condensed'; font-weight: bold; text-align: center; display: block; margin: 0 auto;">Takipçi
+  font-family: 'Bahnschrift Condensed'; font-weight: bold; text-align: center; display: block; margin: 0 auto;">Takip Edilen
             </label>
             <div runat="server" id="followerList" class="You-Follow-Follows-You-container" style="padding-left: 9px; display: inline-block; vertical-align: middle; height: 150px">
             </div>
@@ -38,7 +38,7 @@
         <div style="padding-left: 9px; display: inline-block; vertical-align: middle; height: 150px; min-width:200px">
             <label id="followed"
                 style="  font-size: 18px;
-  font-family: 'Bahnschrift Condensed'; font-weight: bold; text-align: center; display: block; margin: 0 auto;">Takip Edilen
+  font-family: 'Bahnschrift Condensed'; font-weight: bold; text-align: center; display: block; margin: 0 auto;">Takipçi
             </label>
             <div runat="server" id="followedList" class="You-Follow-Follows-You-container" style="padding-left: 9px; display: inline-block; vertical-align: middle; height: 150px">
             </div>

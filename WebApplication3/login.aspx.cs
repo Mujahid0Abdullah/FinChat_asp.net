@@ -13,7 +13,7 @@ using Org.BouncyCastle.Crypto.Generators;
 namespace WebApplication3
 {
     public partial class login : System.Web.UI.Page
-    {
+    {   //global connection text
         public static string con = "SERVER=localhost;DATABASE=webproject;UID=root;PASSWORD=;";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,25 +24,26 @@ namespace WebApplication3
 
         protected void submitLogin_Click(object sender, EventArgs e)
         {
-            // Get username and password from the form
+           
             string username = Username.Text;
             string password = Password.Text;
             Console.WriteLine(password);
+
             System.Diagnostics.Debug.WriteLine(password);
-            // Validate username and password (optional, can be done on client-side too)
+
+          
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                // Display error message
+                //error 
                 ScriptManager.RegisterStartupScript(this, GetType(), "InvalidInput", "alert('Please enter username and password.');", true);
                 return;
             }
 
-            // Establish connection to the database
-            string connectionString = "SERVER=localhost;DATABASE=webproject;UID=root;PASSWORD=;";
+          
 
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(con))
                 {
                     connection.Open();
 
