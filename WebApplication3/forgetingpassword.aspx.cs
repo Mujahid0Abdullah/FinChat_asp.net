@@ -136,7 +136,7 @@ namespace WebApplication3
 
                             MailMessage mesaj = new MailMessage();
                             SmtpClient istemci = new SmtpClient();
-                            istemci.Credentials = new System.Net.NetworkCredential("qqwweeqweft@outlook.sa", "12345ttyyuukkoo");
+                            istemci.Credentials = new System.Net.NetworkCredential("qqwweeqweft@outlook.sa", "password");
                             istemci.Port = 587;
                             istemci.Host = "smtp.office365.com";
                             istemci.EnableSsl = true;
